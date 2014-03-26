@@ -26,6 +26,7 @@
 #define HP_ERROR_PREFIX		"[!]"
 
 #define HP_MAC_LEN		6
+#define HP_SSID_MAX_LEN 256
 
 /* 802.11 field positions */
 #define HP_80211_SRC_MAC	9
@@ -33,8 +34,9 @@
 #define HP_80211_BSSID		15
 #define HP_80211_SSID_LEN	37
 #define HP_80211_SSID		38
-#define HP_80211_PSSID		26
-#define HP_80211_PSRC		10
+#define HP_80211_P_SSID		26
+#define HP_80211_P_SSID_LEN	25
+#define HP_80211_P_SRC		10
 #define HP_80211_TYPE		0
 
 /* Frame types */
@@ -59,10 +61,13 @@ struct AP_INFO {
 	uint8_t *dst_mac;
 
 	int recv_probe_request;
+	int valid_probe;
 	int ap_created;
 };
 
 typedef struct AP_INFO ap_info_t;
+
+ap_info_t ap_info;
 
 /* Should probably go in a seperate header */
 void printd(unsigned int, const char*, ...);

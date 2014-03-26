@@ -1,7 +1,5 @@
 #include "honeypot.h"
 
-ap_info_t ap_info;
-
 void printd(unsigned int level, const char* format, ...) {
 	va_list arg;
 
