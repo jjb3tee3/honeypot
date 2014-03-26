@@ -1,7 +1,29 @@
 #include "honeypot.h"
 
 int start_ap(lorcon_t *context, lorcon_packet_t *packet) {
-	printd(HP_INFO, "Starting AP.");
+	pid_t childPID;
+	char cmd[256];
+ 
+	if(ap_info.ap_created == 0) {
+		childPID = fork();
+
+		if(childPID >= 0) {
+			if(childPID == 0) {
+				// Child process
+				snprintf(cmd, sizeof cmd, "airbase-ng --essid %s -c %i mon0", ap_info.ssid, ap_info.channel);
+				system(cmd);
+				exit(0);
+			} else {
+				// Parent process
+				/* Help start the association process */
+				//printd(PR_DEBUG, "Creating honeypot and poking device.");
+				ap_info.ap_created = 1;
+			}
+		
+ 		} else {
+			printd(HP_ERROR, "Unable to fork.");
+		}		
+	}
 }
 
 /* 	Ensure the SSID > 0 && < 255 before parsing to determine
