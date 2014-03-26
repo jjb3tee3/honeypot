@@ -4,22 +4,6 @@ int start_ap(lorcon_t *context, lorcon_packet_t *packet) {
 	printd(HP_INFO, "Starting AP.");
 }
 
-
-/*int get_probe_ssid(lorcon_packet_t *packet, char **result) {
-	char ssid[HP_SSID_MAX_LEN];
-	int i;
-
-	if((packet->packet_header[HP_80211_P_SSID_LEN] != 0) && (packet->packet_header[HP_80211_P_SSID_LEN] < 255)) {
-		for(i=0; i<packet->packet_header[HP_80211_P_SSID_LEN]; i++) {
-			ssid[i] = packet->packet_header[HP_80211_P_SSID + i];
-		}
-
-		*result = strdup(ssid);
-	} else {
-		return -1;
-	}
-}*/
-
 /* 	Ensure the SSID > 0 && < 255 before parsing to determine
 	it's the frame we're after. If so populate VAP info */
 int parse_probe_request(lorcon_packet_t *packet) {
